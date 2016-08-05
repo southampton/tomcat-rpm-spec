@@ -1,0 +1,17 @@
+# Systemd unit file for tomcat
+
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/sysconfig/uostomcat
+EnvironmentFile=-/srv/tomcat/tomcat.conf
+ExecStart=/usr/share/uostomcat/bin/catalina.sh run >/var/log/uostomcat/catalina.out 2>&1
+SuccessExitStatus=143
+User=tomcat
+Group=tomcat
+
+[Install]
+WantedBy=multi-user.target
