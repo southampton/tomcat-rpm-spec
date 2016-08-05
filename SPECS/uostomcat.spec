@@ -12,7 +12,7 @@ Summary:    Apache Servlet/JSP Engine, RI for Servlet 3.1/JSP 2.3 API
 Name:       uostomcat
 Version:    8.5.4
 BuildArch:  noarch
-Release:    3
+Release:    4
 License:    Apache Software License
 Group:      Networking/Daemons
 URL:        http://tomcat.apache.org/
@@ -66,15 +66,6 @@ rm -f %{buildroot}/%{tomcat_home}/NOTICE
 rm -f %{buildroot}/%{tomcat_home}/RELEASE-NOTES
 rm -f %{buildroot}/%{tomcat_home}/RUNNING.txt
 
-# Remove extra logging configs
-#sed -i -e '/^3manager/d' -e '/\[\/manager\]/d' \
-#    -e '/^4host-manager/d' -e '/\[\/host-manager\]/d' \
-#    -e '/^java.util.logging.ConsoleHandler/d' \
-#    -e 's/, *java.util.logging.ConsoleHandler//' \
-#    -e 's/, *4host-manager.org.apache.juli.AsyncFileHandler//' \
-#    -e 's/, *3manager.org.apache.juli.AsyncFileHandler//' \
-#    %{buildroot}/%{tomcat_home}/conf/logging.properties
-
 # Put logging in a custom location and link back.
 rm -rf %{buildroot}/%{tomcat_home}/logs
 install -d -m 755 %{buildroot}%{tomcat_log_home}/
@@ -100,19 +91,15 @@ chmod 775 %{buildroot}/%{tomcat_cache_home}/temp
 chmod 775 %{buildroot}/%{tomcat_cache_home}/work
 cd -
 
-# Drop sbin script
-#install -d -m 755 %{buildroot}/%{_sbindir}
-#install    -m 755 %_sourcedir/%{name}.bin %{buildroot}/%{_sbindir}/%{name}
-
-# Drop systemd service script
+# systemd service
 install -d -m 755 %{buildroot}/%{systemd_dir}
 install    -m 644 %_sourcedir/%{name}.service %{buildroot}/%{systemd_dir}/%{name}.service
 
-# Drop sysconfig script
+# sysconfig script
 install -d -m 755 %{buildroot}/%{_sysconfdir}/sysconfig/
 install    -m 644 %_sourcedir/%{name}.sysconfig %{buildroot}/%{_sysconfdir}/sysconfig/%{name}
 
-# Drop logrotate script
+# logrotate script
 install -d -m 755 %{buildroot}/%{_sysconfdir}/logrotate.d
 install    -m 644 %_sourcedir/%{name}.logrotate %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}
 
