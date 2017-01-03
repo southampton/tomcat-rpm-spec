@@ -7,7 +7,7 @@
 %define tomcat_conf_home %{_sysconfdir}/uostomcat
 %define tomcat_log_home /var/log/uostomcat
 %define systemd_dir /usr/lib/systemd/system/
-%define tomcat_version 8.5.5
+%define tomcat_version 8.5.9
 %define tomcat_release 4
 
 Summary:    Apache Servlet/JSP Engine, RI for Servlet 3.1/JSP 2.3 API
